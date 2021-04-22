@@ -1,0 +1,161 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<html>
+<head>
+<title>GSB application de frais</title>
+
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+	crossorigin="anonymous">
+
+</head>
+
+<body>
+		
+	<header>
+		<nav class="navbar navbar-expand-md navbar-dark"
+			style="background-color: darkblue">
+			<div>
+				<a href="https://www.javaguides.net" class="navbar-brand"> GSB</a>
+			</div>
+
+			<ul class="navbar-nav">
+				<li><a href="<%=request.getContextPath()%>/list"
+					class="nav-link">Fiche de Frais</a></li>
+			</ul>
+
+			<ul class="navbar-nav navbar-collapse justify-content-end">
+				<li><a href="<%=request.getContextPath()%>/logout"
+					class="nav-link">Déconnexion</a></li>
+			</ul>
+		</nav>
+	</header>
+	
+	<div class="container col-md-5">
+		<div class="card">
+			<div class="card-body">
+
+				<c:if test="${ficheFrais != null}">
+					<input type="hidden" name="id" value="<c:out value='${loginBean.idVisiteur}' />" />
+				</c:if>
+				<c:if test="${ficheFrais != null}">
+					<form action="update" method="post">
+				</c:if>
+				<c:if test="${ficheFrais == null}">
+					<form action="insert" method="post">
+				</c:if>
+
+				<caption>
+					<h2>
+						<c:if test="${ficheFrais != null}">
+            			Modifier
+            		</c:if>
+						<c:if test="${ficheFrais == null}">
+            			Ajouter
+            		</c:if>
+					</h2>
+				</caption>
+
+				<c:if test="${ficheFrais != null}">
+					<input type="hidden" name="id" value="<c:out value='${loginBean.idVisiteur}' />" />
+				</c:if>
+	<ul class="navbar-nav">
+				<li><a href="<%=request.getContextPath()%>/listHF"
+				 class="btn btn-success">Ajouter des frais hors forfait</a></li>
+			</ul>
+				
+
+				<fieldset class="form-group">
+					<h2>Frais Forfait</h2>
+						<fieldset class="form-group">
+					<label>Date</label> <input type="date"
+						value="<c:out value='${ligneFraisForfait.targetDate}' />" class="form-control"
+						name="targetDate" required="required">
+				</fieldset>
+					<label>Etape (Nuitée + Repas):</label> <input type="number"
+						value="<c:out value='${ligneFraisForfait.idFraisForfait}' />" class="form-control"
+						name="ETP" placeholder="(entrer un nombre)">
+						
+						<label>Nuitée (hors étape):</label> <input type="number"
+						value="<c:out value='${ligneFraisForfait.nuitee}' />" class="form-control"
+						name="NUI" minlength="5" placeholder="(entrer un nombre)">
+						
+						<label>Restaurant (hors étape):</label> <input type="number"
+						value="<c:out value='${ligneFraisForfait.restaurant}' />" class="form-control"
+						name="REP" minlength="5" placeholder="(entrer un nombre)">
+						
+						<label>Kilomètre:</label> <input type="number"
+						value="<c:out value='${ligneFraisForfait.kilometre}' />" class="form-control"
+						name="KM" minlength="5" placeholder="(entrer un nombre)">
+				</fieldset>
+	<!--<ul class="navbar-nav">
+				<li><a href="<%=request.getContextPath()%>/listHF"
+				 class="btn btn-success">Ajouter des frais hors forfait</a></li>
+			</ul>-->
+
+		<!--  		<fieldset class="form-group">
+				<h2>Frais Hors Forfait</h2>
+						<fieldset class="form-group">
+					<label>Date</label> <input type="date"
+						value="<c:out value='${ligneFraisHorsForfait.date}' />" class="form-control"
+						name="dateHF" required="required" >
+				</fieldset>
+					<label>Libellé:</label> <input type="text"
+						value="<c:out value='${ligneFraisHorsForfait.libelle}' />" class="form-control"
+						name="libelle" minlength="5">
+						
+						<label>Montant:</label> <input type="text"
+						value="<c:out value='${ligneFraisHorsForfait.montant}' />" class="form-control"
+						name="montant" minlength="5">
+						<button type="submit" name ="enregistrerHF" class="btn btn-success">Enregistrer le frais hors forfait</button>
+					
+				</fieldset>
+		<table class="table table-bordered">
+				<thead>
+					<tr>
+						<th>Libellé</th>
+						<th>Date</th>
+						<th>Montant</th>
+						<th>Action</th>
+						
+					</tr>
+				</thead>
+			  	<tbody>-->
+				<!--	  for (Todo todo: todos) {  -->
+				<!-- 	<c:forEach var="ligneFraisHorsForfait" items="${listFraisHF}">
+
+						<tr>
+							<td><c:out value="${ligneFraisHorsForfait.libelle}" /></td>
+							<td><c:out value="${ligneFraisHorsForfait.date}" /></td>
+							<td><c:out value="${ligneFraisHorsForfait.montant}" /></td>
+							
+
+							<td><a href="edit?id=<c:out value='${ligneFraisHorsForfait.id}' />">Modifier</a>
+								&nbsp;&nbsp;&nbsp;&nbsp; <a
+								href="delete?id=<c:out value='${ligneFraisHorsForfait.id}' />">Supprimer</a></td>
+
+						<!--	  <td><button (click)="updateTodo(todo.id)" class="btn btn-success">Update</button>
+          							<button (click)="deleteTodo(todo.id)" class="btn btn-warning">Delete</button></td> --> 
+			<!--			</tr>
+					</c:forEach> -->
+					<!-- } -->
+			<!--  	</tbody>
+
+			</table>-->
+				
+				<button type="reset" class="btn btn-success">Réinitialiser</button>
+				<button type="submit" name ="enregistrer" class="btn btn-success">Enregistrer</button>
+			
+		</form>
+					
+			</div>
+		</div>
+	</div>
+	
+
+	<jsp:include page="../common/footer.jsp"></jsp:include>
+</body>
+		
+</html>
